@@ -1,93 +1,92 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
+import Navbar from './Navbar';
 const Cart = () => {
-  const [cart, setCart] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCart(storedCart);
-  }, []);
-
-  const removeFromCart = (id) => {
-    const updatedCart = cart.filter((item) => item._id !== id);
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
-
-  const handlePlaceOrder = async () => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId'); // Set this at login/signup
-
-    if (!token || !userId) {
-      alert('Please login first to place an order.');
+    if (!token) {
+      alert("Please login first!");
+      window.location.href = '/auth';
       return;
     }
 
-    const orderData = {
-      user: userId,
-      items: cart.map((item) => ({
-        courseId: item._id,
-        title: item.title,
-        price: item.price,
-      })),
-    };
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCartItems(storedCart);
+  }, [token]);
 
-    try {
-      const response = await axios.post(
-        'http://localhost:5000/api/orders',
-        orderData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        alert('Order placed successfully!');
-        localStorage.removeItem('cart');
-        setCart([]);
-      }
-    } catch (error) {
-      console.error('Order failed:', error);
-      alert('Order failed. Please try again.');
-    }
+  const handlePlaceOrder = () => {
+    alert("Order placed successfully (COD)!");
+    localStorage.removeItem('cart');
+    setCartItems([]);
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
-      {cart.length === 0 ? (
-        <p>No items in cart.</p>
+    <div className="min-h-screen bg-white text-white px-4 py-8">
+     
+      <h2 className="text-3xl font-bold text-black text-center mb-8">Your Cart</h2>
+
+      {cartItems.length === 0 ? (
+        <p className="text-center text-gray-400 text-lg">Your cart is empty.</p>
       ) : (
-        <ul className="space-y-2">
-          {cart.map((item) => (
-            <li
-              key={item._id}
-              className="flex justify-between items-center border p-2 rounded"
-            >
-              <div>
-                <h3 className="font-bold">{item.title}</h3>
-                <p>Price: ${item.price}</p>
-              </div>
-              <button
-                className="text-red-500"
-                onClick={() => removeFromCart(item._id)}
+        <>
+          {/* 🛍 Cards View */}
+          <div className="grid gap-6 max-w-4xl mx-auto">
+            {cartItems.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white text-black rounded-xl shadow-md p-5 border border-gray-200"
               >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-      {cart.length > 0 && (
-        <button
-          className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded"
-          onClick={handlePlaceOrder}
-        >
-          Place Order
-        </button>
+                <h3 className="text-xl font-semibold text-yellow-600">{item.title}</h3>
+                <p className="text-gray-700">{item.description}</p>
+                <div className="mt-2 flex justify-between text-sm font-medium">
+                  <span>Price: ${item.price}</span>
+                  <span className="text-orange-500">Status: Pending</span>
+                  <span>Payment: COD</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 📋 Order Table */}
+          <div className="mt-10 max-w-4xl mx-auto">
+            <h3 className="text-xl font-semibold text-yellow-500 mb-4">Order Summary</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full bg-white text-black rounded-xl shadow-sm">
+                <thead className="bg-yellow-500 text-white text-left">
+                  <tr>
+                    <th className="py-2 px-4">#</th>
+                    <th className="py-2 px-4">Course</th>
+                    <th className="py-2 px-4">Price</th>
+                    <th className="py-2 px-4">Status</th>
+                    <th className="py-2 px-4">Payment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map((item, idx) => (
+                    <tr key={idx} className="border-b">
+                      <td className="py-2 px-4">{idx + 1}</td>
+                      <td className="py-2 px-4">{item.title}</td>
+                      <td className="py-2 px-4">${item.price}</td>
+                      <td className="py-2 px-4 text-orange-500">Pending</td>
+                      <td className="py-2 px-4">COD</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* ✅ Place Order Button */}
+          <div className="text-center mt-8">
+            <button
+              onClick={handlePlaceOrder}
+              className="bg-yellow-500 text-black font-semibold px-6 py-2 rounded-xl hover:bg-yellow-600 transition"
+            >
+              Place Order (COD)
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

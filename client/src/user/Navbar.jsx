@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react'; // 👈 Optional: install lucide-react for icons
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[#111827] text-white px-6 py-4 shadow-md">
+    <nav className="bg-black text-white px-6 py-4 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-yellow-500">
@@ -14,11 +14,20 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex gap-6 text-base font-medium">
+        <div className="hidden md:flex gap-6 text-base font-medium items-center">
           <Link to="/" className="hover:text-yellow-400 transition">Home</Link>
           <Link to="/courses" className="hover:text-yellow-400 transition">Courses</Link>
           <Link to="/contact" className="hover:text-yellow-400 transition">Contact</Link>
           <Link to="/login" className="hover:text-yellow-400 transition">Login</Link>
+          
+          {/* Cart Icon */}
+          <Link to="/cart" className="ml-2">
+            <img
+              src="https://www.citypng.com/public/uploads/preview/hd-shopping-cart-white-logo-icon-transparent-png-701751694973936amdcratijm.png?v=2025062003"
+              alt="Cart"
+              className="w-6 h-6"
+            />
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -37,6 +46,14 @@ const Navbar = () => {
           <Link to="/courses" onClick={() => setIsOpen(false)} className="hover:text-yellow-400 transition">Courses</Link>
           <Link to="/contact" onClick={() => setIsOpen(false)} className="hover:text-yellow-400 transition">Contact</Link>
           <Link to="/login" onClick={() => setIsOpen(false)} className="hover:text-yellow-400 transition">Login</Link>
+          <Link to="/cart" onClick={() => setIsOpen(false)} className="hover:text-yellow-400 transition flex items-center gap-2">
+            <img
+              src="https://www.citypng.com/public/uploads/preview/hd-shopping-cart-white-logo-icon-transparent-png-701751694973936amdcratijm.png?v=2025062003"
+              alt="Cart"
+              className="w-5 h-5"
+            />
+            Cart
+          </Link>
         </div>
       )}
     </nav>

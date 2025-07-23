@@ -1,5 +1,6 @@
+
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // or your correct user model
+const User = require('../models/User'); // Adjust the path if needed
 
 const protect = async (req, res, next) => {
   let token;
@@ -25,5 +26,6 @@ const protect = async (req, res, next) => {
     return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
+
 
 module.exports = { protect };

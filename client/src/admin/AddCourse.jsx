@@ -27,10 +27,8 @@ const AddCourse = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <Sidebar />
-
+    <div className="min-h-screen bg-white text-black font-sans">
+      <Sidebar/> 
       {/* Form Area */}
       <div className="flex-1 p-8">
         <div className="max-w-xl bg-white p-6 rounded-lg shadow-md mx-auto">

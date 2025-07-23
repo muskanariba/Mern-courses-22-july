@@ -1,22 +1,12 @@
 import React from "react";
 import About from "./About";
 import Courses from "./Courses";
-
+import Contact from "./Contact";
+import Navbar from "./Navbar"
 const Home = () => {
   return (
     <div className="font-sans bg-gray-100">
-      {/* Navbar */}
-      <div className="bg-black text-white flex justify-between items-center px-6 py-5 shadow-md">
-        <div className="text-2xl font-extrabold tracking-wide">
-          Course<span className="text-yellow-500">Platform</span>
-        </div>
-        <div className="flex gap-6 text-base font-medium">
-          <a href="/" className="hover:text-yellow-500 transition duration-300">Home</a>
-          <a href="/courses" className="hover:text-yellow-500 transition duration-300">Courses</a>
-          <a href="/contact" className="hover:text-yellow-500 transition duration-300">Contact</a>
-          <a href="/login" className="hover:text-yellow-500 transition duration-300">Login</a>
-        </div>
-      </div>
+      
 
       {/* Hero Section */}
       <section className="flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-24 py-24 md:h-[90vh] bg-white">
@@ -33,7 +23,7 @@ const Home = () => {
           </p>
           <div>
             <a
-              href="/all-course"
+              href="/courses"
               className="inline-block bg-yellow-500 text-black px-7 py-3 rounded-full font-semibold hover:bg-yellow-600 transition duration-300 shadow-md"
             >
               Explore Courses
@@ -46,7 +36,7 @@ const Home = () => {
           <img
             src="https://i.pinimg.com/736x/95/41/03/954103761f723c8818727adbda94f01b.jpg"
             alt="Main Home"
-            className="w-full h-auto max-w-[420px] rounded-2xl shadow-xl hover:scale-105 transition duration-300"
+            className="w-full h-auto max-w-[300px] rounded-2xl shadow-xl hover:scale-105 transition duration-300"
           />
         </div>
       </section>
@@ -54,6 +44,7 @@ const Home = () => {
       {/* Sections */}
       <About />
       <Courses />
+      <Contact/>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const UsersData = () => {
     const fetchUsers = async () => {
       try {
         const res = await getAllUsers();
-        setUsers(res.data); // or res.data.users
+        setUsers(res.data); // Adjust if data shape is different
       } catch (err) {
         console.error('Failed to fetch users:', err);
         setError('Failed to load users.');
@@ -24,35 +24,38 @@ const UsersData = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-black text-white">
-      {/* Sidebar */}
-      <Sidebar/>
+   <div className="min-h-screen bg-white text-black font-sans">
+      <Sidebar/> {/* Sidebar ki jagah ab top navbar */}
       {/* Main Content */}
-      <main className="flex-1 bg-white text-black p-6 rounded-tl-2xl">
-        <h1 className="text-2xl font-bold text-yellow-500 mb-6">All Users</h1>
+      <main className="flex-1 p-6 sm:p-10">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">Users List</h1>
+          <p className="text-sm text-gray-600">All registered users on the platform.</p>
+        </div>
 
-        {loading && <p className="text-center p-4">Loading...</p>}
-        {error && <p className="text-center text-red-500 p-4">{error}</p>}
+        {/* Table or Status */}
+        {loading && <p className="text-center p-4 text-gray-500">Loading...</p>}
+        {error && <p className="text-center p-4 text-red-500">{error}</p>}
 
-        <div className="overflow-x-auto">
-          <table className="w-full border border-gray-300 rounded-lg shadow-sm">
+        <div className="overflow-x-auto shadow rounded-2xl">
+          <table className="min-w-full text-sm bg-white border border-gray-200 rounded-2xl overflow-hidden">
             <thead className="bg-yellow-500 text-white">
               <tr>
-                <th className="px-4 py-2 text-left">Name</th>
-                <th className="px-4 py-2 text-left">Email</th>
+                <th className="text-left px-6 py-3">Name</th>
+                <th className="text-left px-6 py-3">Email</th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(users) && users.length > 0 ? (
                 users.map((user) => (
-                  <tr key={user._id} className="border-t">
-                    <td className="px-4 py-2">{user.name}</td>
-                    <td className="px-4 py-2">{user.email}</td>
+                  <tr key={user._id} className="border-t hover:bg-gray-50 transition">
+                    <td className="px-6 py-4">{user.name}</td>
+                    <td className="px-6 py-4">{user.email}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td className="px-4 py-4 text-center text-gray-500" colSpan="2">
+                  <td colSpan="2" className="text-center px-6 py-6 text-gray-500">
                     No users found.
                   </td>
                 </tr>
