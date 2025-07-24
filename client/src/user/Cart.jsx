@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const token = localStorage.getItem('token');
@@ -15,22 +16,21 @@ const Cart = () => {
     setCartItems(storedCart);
   }, [token]);
 
-  const handlePlaceOrder = () => {
-    alert("Order placed successfully (COD)!");
+  const handleEnroll = () => {
+    alert("You have been successfully enrolled!");
     localStorage.removeItem('cart');
     setCartItems([]);
   };
 
   return (
     <div className="min-h-screen bg-white text-white px-4 py-8">
-     
-      <h2 className="text-3xl font-bold text-black text-center mb-8">Your Cart</h2>
+      <h2 className="text-3xl font-bold text-black text-center mb-8">Your Enrolled Courses</h2>
 
       {cartItems.length === 0 ? (
-        <p className="text-center text-gray-400 text-lg">Your cart is empty.</p>
+        <p className="text-center text-gray-400 text-lg">You haven't enrolled in any courses yet.</p>
       ) : (
         <>
-          {/* 🛍 Cards View */}
+          {/* 🛍 Enrolled Courses List */}
           <div className="grid gap-6 max-w-4xl mx-auto">
             {cartItems.map((item, idx) => (
               <div
@@ -41,16 +41,15 @@ const Cart = () => {
                 <p className="text-gray-700">{item.description}</p>
                 <div className="mt-2 flex justify-between text-sm font-medium">
                   <span>Price: ${item.price}</span>
-                  <span className="text-orange-500">Status: Pending</span>
-                  <span>Payment: COD</span>
+                  <span className="text-green-600">Status: Enrolled</span>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* 📋 Order Table */}
+          {/* 📋 Summary Table */}
           <div className="mt-10 max-w-4xl mx-auto">
-            <h3 className="text-xl font-semibold text-yellow-500 mb-4">Order Summary</h3>
+            <h3 className="text-xl font-semibold text-yellow-500 mb-4">Enrollment Summary</h3>
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white text-black rounded-xl shadow-sm">
                 <thead className="bg-yellow-500 text-white text-left">
@@ -59,7 +58,6 @@ const Cart = () => {
                     <th className="py-2 px-4">Course</th>
                     <th className="py-2 px-4">Price</th>
                     <th className="py-2 px-4">Status</th>
-                    <th className="py-2 px-4">Payment</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,8 +66,7 @@ const Cart = () => {
                       <td className="py-2 px-4">{idx + 1}</td>
                       <td className="py-2 px-4">{item.title}</td>
                       <td className="py-2 px-4">${item.price}</td>
-                      <td className="py-2 px-4 text-orange-500">Pending</td>
-                      <td className="py-2 px-4">COD</td>
+                      <td className="py-2 px-4 text-green-600">Enrolled</td>
                     </tr>
                   ))}
                 </tbody>
@@ -77,13 +74,13 @@ const Cart = () => {
             </div>
           </div>
 
-          {/* ✅ Place Order Button */}
+          {/* 🎉 Enroll Button */}
           <div className="text-center mt-8">
             <button
-              onClick={handlePlaceOrder}
+              onClick={handleEnroll}
               className="bg-yellow-500 text-black font-semibold px-6 py-2 rounded-xl hover:bg-yellow-600 transition"
             >
-              Place Order (COD)
+              Confirm Enrollment
             </button>
           </div>
         </>

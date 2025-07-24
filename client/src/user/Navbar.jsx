@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-
+import navbarimg from '../user/navbarimg.png'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,7 +23,7 @@ const Navbar = () => {
           {/* Cart Icon */}
           <Link to="/cart" className="ml-2">
             <img
-              src="https://www.citypng.com/public/uploads/preview/hd-shopping-cart-white-logo-icon-transparent-png-701751694973936amdcratijm.png?v=2025062003"
+              src= {navbarimg}
               alt="Cart"
               className="w-6 h-6"
             />
@@ -48,7 +48,7 @@ const Navbar = () => {
           <Link to="/login" onClick={() => setIsOpen(false)} className="hover:text-yellow-400 transition">Login</Link>
           <Link to="/cart" onClick={() => setIsOpen(false)} className="hover:text-yellow-400 transition flex items-center gap-2">
             <img
-              src="https://www.citypng.com/public/uploads/preview/hd-shopping-cart-white-logo-icon-transparent-png-701751694973936amdcratijm.png?v=2025062003"
+             src= {navbarimg}
               alt="Cart"
               className="w-5 h-5"
             />

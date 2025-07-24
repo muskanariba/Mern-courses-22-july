@@ -2,13 +2,23 @@ const Course = require('../models/courseModel');
 
 exports.addCourse = async (req, res) => {
   try {
-    const course = new Course(req.body);
-    await course.save();
-    res.status(201).json(course);
+    const { title, description, price } = req.body;
+
+    const newCourse = new Course({
+      title,
+      description,
+      price,
+
+    });
+
+    await newCourse.save();
+    res.status(201).json(newCourse);
   } catch (err) {
     res.status(500).json({ message: 'Error adding course', error: err.message });
   }
 };
+
+// ...getCourses and deleteCourse remain unchanged
 
 exports.getCourses = async (req, res) => {
   try {
